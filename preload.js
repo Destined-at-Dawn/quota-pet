@@ -1,0 +1,2 @@
+const {contextBridge,ipcRenderer}=require('electron');
+contextBridge.exposeInMainWorld('pet',{configureClient:input=>ipcRenderer.invoke('configure-client',input),onOperationError:fn=>ipcRenderer.on('operation-error',(_,key)=>fn(key)),action:a=>ipcRenderer.send('action',a),move:p=>ipcRenderer.send('move',p),savePreferences:value=>ipcRenderer.invoke('preferences',value),snapshot:()=>ipcRenderer.invoke('snapshot'),onSnapshot:fn=>ipcRenderer.on('snapshot',(_,s)=>fn(s))});

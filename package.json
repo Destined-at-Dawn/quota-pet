@@ -1,0 +1,30 @@
+{
+  "name": "quota-pet",
+  "version": "0.1.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test.cjs *.test.cjs",
+    "smoke": "electron . --smoke",
+    "build": "node build.cjs",
+    "audit": "node privacy-audit.cjs",
+    "package": "node package-release.cjs"
+  },
+  "devDependencies": {
+    "electron": "44.4.5",
+    "electron-packager": "^17.1.2",
+    "png-to-ico": "^3.0.2",
+    "rcedit": "^5.0.1"
+  },
+  "productName": "Quota Pet",
+  "description": "A Windows desktop companion for AI quota monitoring",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Destined-at-Dawn/quota-pet.git"
+  },
+  "homepage": "https://download.yulitongxing.com",
+  "bugs": {
+    "url": "https://github.com/Destined-at-Dawn/quota-pet/issues"
+  }
+}

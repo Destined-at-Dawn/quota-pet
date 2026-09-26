@@ -1,0 +1,5 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const read=name=>fs.readFileSync(path.join(__dirname,name),'utf8');
+test('external paths and errors are handled through default shell',()=>{const main=read('main.js');assert(main.includes("openExternalPage(TRANSIT_ORIGIN+'/')"));assert(main.includes('openExternalPage(ORIGIN+page)'));assert(main.includes("shell.openExternal(url).catch"));assert(main.includes("'operation-error','browserOpenFailed'"));});
+test('native detection uses process image and releases handles; webviews are not browsers',()=>{const ps=read('foreground.ps1');for(const api of ['GetForegroundWindow','GetWindowThreadProcessId','QueryFullProcessImageName','CloseHandle'])assert(ps.includes(api));assert(ps.includes("'tabbit browser'"));assert(ps.includes('UrlAssociations'));assert(ps.includes("@('explorer','rundll32','msedgewebview2')"));});
+test('switch changes save only their field immediately',()=>{const s=read('renderer.js');assert(s.includes("[['open-in-browser','openInBrowser'],['browser-behind','browserBehind']]"));assert(s.includes('savePreferences({[key]:value})'));});

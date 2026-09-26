@@ -1,0 +1,20 @@
+node_modules/
+dist/
+artifacts/
+evidence/
+.smoke-profile/
+*.log
+smoke.png
+.env
+.env.*
+*.pem
+*.key
+*.token
+auth.dat
+Cookies
+Login Data
+preferences.json
+quota-cache.json
+runtime-status.json
+Thumbs.db
+.DS_Store

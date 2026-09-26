@@ -1,0 +1,14 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{spawnSync}=require('node:child_process');
+const version=require('./package.json').version;
+const source=path.resolve(__dirname,process.env.QUOTA_PET_BUILD_DIR||'dist/QuotaPet');
+if(!fs.existsSync(path.join(source,'QuotaPet.exe')))throw Error('Build the Windows package first');
+const audit=spawnSync(process.execPath,[path.join(__dirname,'privacy-audit.cjs'),source,'--package'],{stdio:'inherit'});if(audit.status!==0)process.exit(1);
+const dir=path.join(__dirname,'artifacts');fs.mkdirSync(dir,{recursive:true});
+const dest=path.join(dir,`QuotaPet-${version}-win-x64.zip`);if(fs.existsSync(dest))throw Error('Release archive already exists');
+const ps=path.join(process.env.SystemRoot||'C:/Windows','System32','WindowsPowerShell','v1.0','powershell.exe');
+const result=spawnSync(ps,['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; Compress-Archive -LiteralPath $env:QUOTA_PET_ZIP_SOURCE -DestinationPath $env:QUOTA_PET_ZIP_DEST -CompressionLevel Optimal'],{env:{...process.env,QUOTA_PET_ZIP_SOURCE:source,QUOTA_PET_ZIP_DEST:dest},stdio:'inherit',windowsHide:true});
+if(result.status!==0)process.exit(1);
+const hash=crypto.createHash('sha256').update(fs.readFileSync(dest)).digest('hex');
+fs.writeFileSync(path.join(dir,'SHA256SUMS.txt'),`${hash}  ${path.basename(dest)}\n`);
+console.log('RELEASE_PACKAGE='+path.basename(dest));
