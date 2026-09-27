@@ -588,14 +588,14 @@ const messages={
     "en": "Dock right"
   },
   "orbHint": {
-    "zh-CN": "{pet} · 单击打开，悬停预览，拖动贴边，右键调大小",
-    "zh-TW": "{pet} · 點擊開啟，停留預覽，拖曳靠邊，右鍵調整大小",
-    "en": "{pet} · Click to open, hover to preview, drag to dock, right-click to resize"
+    "zh-CN": "{pet} · 单击互动，双击打开，悬停预览，拖拽提起，右键调大小",
+    "zh-TW": "{pet} · 點擊互動，雙擊開啟，停留預覽，拖曳提起，右鍵調整大小",
+    "en": "{pet} · Click to interact, double-click to open, hover to preview, drag to lift, right-click to resize"
   },
   "orbLow": {
-    "zh-CN": "{pet} · {count} 项额度剩余 10% 或更少，点击查看",
-    "zh-TW": "{pet} · {count} 項額度剩餘 10% 或更少，點擊查看",
-    "en": "{pet} · {count} quotas at 10% or less. Click to view."
+    "zh-CN": "{pet} · {count} 项额度剩余 10% 或更少，双击查看",
+    "zh-TW": "{pet} · {count} 項額度剩餘 10% 或更少，雙擊查看",
+    "en": "{pet} · {count} quotas at 10% or less. Double-click to view."
   },
   "windowTitle": {
     "zh-CN": "Quota Pet · {page}",

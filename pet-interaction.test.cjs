@@ -1,0 +1,6 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');const {createInteraction}=require('./pet-interaction.js');
+test('click starts an interaction without a drag',()=>{const i=createInteraction();i.down(10,10,0);assert.equal(i.move(12,11,10),false);assert.equal(i.up(20),'pat');assert.equal(i.view(21).phase,'pat');assert.equal(i.view(1400).phase,'idle');});
+test('drag grips, limits sway, lands and never also pats',()=>{const i=createInteraction();i.down(10,10,0);assert.equal(i.move(40,25,5),true);assert.equal(i.view(6).phase,'held');assert(i.view(6).sway<=8);assert.equal(i.up(20),'release');assert.equal(i.view(21).phase,'landing');assert.equal(i.view(500).phase,'idle');});
+test('cancel and lost capture cannot leave a held pet',()=>{const i=createInteraction();i.down(10,10,0);i.move(70,70,10);i.up(20,true);assert.notEqual(i.view(30).phase,'held');assert.equal(i.up(40,true),'none');});
+test('click cycles distinct poses, repeated input is bounded, double click clears pose',()=>{const i=createInteraction();const variants=[];for(let n=0;n<3;n++){i.pat(n*10);variants.push(i.view(n*10).variant);}assert.deepEqual(variants,[0,1,2]);i.clear();assert.equal(i.view(100).phase,'idle');});

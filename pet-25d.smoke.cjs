@@ -67,5 +67,23 @@ module.exports=async({app,orb,panel,dashboard,getSettings,screen,tickPet,startRo
  await settings({petMovement:false,petTailMotion:true,petSize:240});await js(settingsWindow,"document.querySelector('#pet-animation').scrollIntoView({block:'start'})");await wait(300);fs.writeFileSync(path.join(root,'cat-settings.png'),(await settingsWindow.webContents.capturePage()).toPNG());settingsWindow.hide();panel.hide();
  console.log('SETTINGS PASS: size/radius/speed/tail controls save, reload and undo; available without login or plan');
  await settings({petMovement:true});setPetAnchor(orb.getBounds());await js(orb,"window.pet.action('pet-hover-end')");await wait(80);startRoaming();const realStart=orb.getBounds();await wait(500);assert.notDeepEqual(orb.getBounds(),realStart);await settings({petMovement:false});await wait(120);const realStop=orb.getBounds();await wait(300);assert.deepEqual(orb.getBounds(),realStop);console.log('TIMER PASS: live timer moves the native window and stops on user toggle');
+ // Real Chromium pointer input, not a direct animation-state fixture.
+ await settings({petMovement:false,petAnimation:true,petId:'tuantuan-original'});panel.hide();dashboard.hide();orb.show();orb.focus();
+ const mouse=(type,x,y,extra={})=>orb.webContents.sendInputEvent({type,x,y,globalX:orb.getBounds().x+x,globalY:orb.getBounds().y+y,button:'left',...extra});
+ mouse('mouseMove',110,105);await wait(80);panel.hide();mouse('mouseDown',110,105,{clickCount:1});await wait(60);mouse('mouseMove',138,110,{modifiers:['leftButtonDown']});await wait(180);
+ assert.equal(await js(orb,"document.querySelector('#pet-art').dataset.interaction"),'held');
+ assert.equal(await js(orb,"getComputedStyle(document.querySelector('#pet-scruff')).display"),'block');
+ assert.notEqual(await js(orb,"document.querySelector('#pet-body').getAttribute('transform')"),null);
+ fs.writeFileSync(path.join(root,'pet-held.png'),(await orb.webContents.capturePage()).toPNG());
+ mouse('mouseUp',138,110,{clickCount:1});await wait(100);
+ assert.equal(await js(orb,"document.querySelector('#pet-art').dataset.interaction"),'landing');
+ await wait(450);assert.equal(await js(orb,"document.querySelector('#pet-art').dataset.interaction"),'idle');
+ mouse('mouseMove',110,105);mouse('mouseDown',110,105,{clickCount:1});mouse('mouseUp',110,105,{clickCount:1});await wait(150);
+ assert.equal(await js(orb,"document.querySelector('#pet-art').dataset.interaction"),'pat');assert(!dashboard.isVisible());
+ assert.equal(await js(orb,"getComputedStyle(document.querySelector('#eyes-happy')).display"),'block');
+ fs.writeFileSync(path.join(root,'pet-click.png'),(await orb.webContents.capturePage()).toPNG());
+ await wait(1350);assert.equal(await js(orb,"document.querySelector('#pet-art').dataset.interaction"),'idle');
+ mouse('mouseDown',110,105,{clickCount:2});mouse('mouseUp',110,105,{clickCount:2});await wait(150);assert(dashboard.isVisible());dashboard.hide();panel.hide();
+ console.log('INTERACTION PASS: native drag grips scruff, dangles, lands; single click responds without opening; double click opens');
  assert.deepEqual(errors,[]);fs.writeFileSync(path.join(root,'native-results.json'),JSON.stringify({passed:true,metrics,modelTest,errors},null,2));console.log('PET 2.5D SMOKE PASS');app.quit();
 };
