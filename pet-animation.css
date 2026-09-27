@@ -1,0 +1,16 @@
+.pet-stage{display:block;position:absolute;inset:10%;transform-origin:50% 85%;pointer-events:none}
+#orb[data-pet-state=dance] .pet-stage{animation:pet-dance 2s ease-in-out 1}
+#orb[data-pet-state=orbit] .pet-stage{animation:pet-orbit 1.5s ease-in-out 1}
+#orb[data-pet-state=love] .pet-stage{animation:pet-love .8s ease-in-out 6}
+#orb[data-pet-state=exhausted] .pet-stage{transform:translateY(9%) rotate(78deg) scale(.88);filter:saturate(.3);transition:transform .6s,filter .6s}
+#orb[data-motion=off] .pet-stage{animation:none}
+#orb:active .pet-stage{animation-play-state:paused}
+@keyframes pet-dance{0%,35%,100%{transform:rotate(0)}42%,62%{transform:translateY(-5%) rotate(-4deg)}52%,72%{transform:translateY(-5%) rotate(4deg)}82%{transform:translateY(-9%) rotate(0)}}
+@keyframes pet-orbit{0%,100%{transform:translate(0,0)}25%{transform:translate(-10%,-9%) rotate(-10deg)}50%{transform:translate(0,-17%)}75%{transform:translate(10%,-9%) rotate(10deg)}}
+@keyframes pet-love{0%,100%{transform:scale(1)}50%{transform:translateY(-5%) scale(1.07)}}
+@media(prefers-reduced-motion:reduce){#orb .pet-stage{animation:none!important;transition:none!important}}
+
+/* A held pet hangs by its nape; event motion never fights the grip. */
+#orb[data-interaction=held] .pet-stage,#orb[data-interaction=landing] .pet-stage,#orb[data-interaction=pat] .pet-stage{animation:none;transform:none;filter:drop-shadow(0 2px 2px #84625818)}
+#orb[data-interaction=held] #pet-shadow{opacity:0}
+#orb[data-interaction=pat] #eyes-normal{display:none}

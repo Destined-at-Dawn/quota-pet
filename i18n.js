@@ -2,6 +2,42 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.PetI18n=factory();})(globalThis,()=>{
 'use strict';
 const messages={
+"petMovement":{"zh-CN": "允许{pet}自主走动（默认关闭）", "zh-TW": "允許{pet}自主走動（預設關閉）", "en": "Allow {pet} to roam (off by default)"},
+"petTailMotion":{"zh-CN": "随机摇尾巴", "zh-TW": "隨機搖尾巴", "en": "Random tail motion"},
+"petMoveRadius":{"zh-CN": "活动范围（以拖放位置为中心）", "zh-TW": "活動範圍（以拖放位置為中心）", "en": "Roaming range from drop position"},
+"petMoveSpeed":{"zh-CN": "走动速度", "zh-TW": "走動速度", "en": "Walking speed"},
+"petRoamingHelp":{"zh-CN": "默认固定在拖放位置展示呼吸、眨眼、摇尾和小动作。想让{pet}走动时再开启；摇尾巴可单独控制。开启走动后，鼠标悬停、拖动或浮窗打开时暂停移动。", "zh-TW": "預設固定在拖放位置展示呼吸、眨眼、搖尾與小動作。想讓{pet}走動時再開啟；搖尾可獨立控制。開啟走動後，滑鼠懸停、拖曳或浮窗開啟時暫停移動。", "en": "By default, {pet} stays where you place it while breathing, blinking, swishing its tail and playing idle animations. Enable roaming only if you want movement. Tail motion is independent; hover, drag or open the popup to pause roaming."},
+"settingsFreedom":{"zh-CN": "所有个性设置向所有用户开放，套餐仅影响模型使用范围。", "zh-TW": "所有個人設定向所有使用者開放，方案僅影響模型使用範圍。", "en": "All customization settings are available to everyone. Plans only affect model access."},
+
+"autoUpdate":{"zh-CN": "自动更新（默认开启）", "zh-TW": "自動更新（預設開啟）", "en": "Automatic updates (on by default)"},
+"autoUpdateHelp":{"zh-CN": "后台检查并下载新版，退出时安装并重启；可取消本次更新并关闭自动更新。关闭后仍可手动检查。", "zh-TW": "背景檢查並下載新版，結束時安裝並重新啟動；可取消並關閉自動更新，仍可手動檢查。", "en": "Checks and downloads in the background, installs and restarts on exit. Turn off to cancel; manual checks remain available."},
+"updateDownloading":{"zh-CN": "正在下载更新… {progress}%", "zh-TW": "正在下載更新… {progress}%", "en": "Downloading update… {progress}%"},
+"updateReady":{"zh-CN": "新版已下载。退出时将自动安装并重启，也可以立即安装或取消自动更新。", "zh-TW": "新版已下載。結束時自動安裝並重新啟動，也可立即安裝或取消。", "en": "Update downloaded. Installs and restarts on exit; you can install now or cancel automatic updates."},
+"installUpdate":{"zh-CN": "立即重启安装", "zh-TW": "立即重新啟動安裝", "en": "Restart and install"},
+"cancelAutoUpdate":{"zh-CN": "取消并关闭自动更新", "zh-TW": "取消並關閉自動更新", "en": "Cancel and disable automatic updates"},
+"updateLater":{"zh-CN": "稍后，退出时安装", "zh-TW": "稍後，結束時安裝", "en": "Later, install on exit"},
+"updateCancelled":{"zh-CN": "自动更新已关闭；仍可手动检查更新。", "zh-TW": "自動更新已關閉；仍可手動檢查。", "en": "Automatic updates are off; you can still check manually."},
+"updateInstalling":{"zh-CN": "正在安装更新…", "zh-TW": "正在安裝更新…", "en": "Installing update…"},
+
+"undo":{"zh-CN": "撤销上一步", "zh-TW": "復原上一步", "en": "Undo last change"},
+"undone":{"zh-CN": "已撤销并保存", "zh-TW": "已復原並儲存", "en": "Undone and saved"},
+"saving":{"zh-CN": "正在自动保存…", "zh-TW": "正在自動儲存…", "en": "Saving automatically…"},
+"autoSaveHelp":{"zh-CN": "修改自动保存；可连续撤销到最初设置，重启后仍保留记录。", "zh-TW": "修改自動儲存；可連續復原到最初設定，重新啟動後仍保留記錄。", "en": "Changes save automatically. Undo history has no fixed limit and survives restarts."},
+"transparency":{"zh-CN": "透明度", "zh-TW": "透明度", "en": "Opacity"},
+"sidebarOpacity":{"zh-CN": "侧边栏", "zh-TW": "側邊欄", "en": "Sidebar"},
+"appOpacity":{"zh-CN": "App 主窗口", "zh-TW": "App 主視窗", "en": "Main app"},
+"petOpacity":{"zh-CN": "{pet}", "zh-TW": "{pet}", "en": "{pet}"},
+"opacityHelp":{"zh-CN": "数值越低越透明，100% 为不透明。设置面板始终清晰可见。", "zh-TW": "數值越低越透明，100% 為不透明。設定面板始終清晰可見。", "en": "Lower values are more transparent; 100% is opaque. Settings remain fully visible."},
+"petAnimation":{"zh-CN": "{pet}自主动作", "zh-TW": "{pet}自動動作", "en": "Animate {pet}"},
+"petChoice":{"zh-CN":"桌宠风格","zh-TW":"桌寵風格","en":"Pet style"},
+"petOriginal":{"zh-CN":"团团 · 灵动原画","zh-TW":"團團 · 靈動原畫","en":"Tuantuan · gentle motion"},
+"petPaper":{"zh-CN":"团团 · 安静贴纸","zh-TW":"團團 · 安靜貼紙","en":"Tuantuan · quiet sticker"},
+"petChoiceHelp":{"zh-CN":"保留原来的{pet}和配色。切换自动保存，也可撤销。","zh-TW":"保留原來的{pet}和配色。切換自動儲存，也可復原。","en":"Same original {pet} and colors. Changes save automatically and can be undone."},
+"petAnimationHelp":{"zh-CN": "控制原画{pet}的呼吸、眨眼和身体动作；关闭时也暂停走动。", "zh-TW": "控制原畫{pet}的呼吸、眨眼和身體動作；關閉時也暫停走動。", "en": "Controls breathing, blinking and body motion of the original 2D {pet}; turning this off also pauses roaming."},
+"invalidMinutes":{"zh-CN": "请输入 0 到 60 的整数分钟", "zh-TW": "請輸入 0 到 60 的整數分鐘", "en": "Enter a whole number from 0 to 60"},
+"petExhausted":{"zh-CN": "额度耗尽，团团饿倒了", "zh-TW": "額度耗盡，團團餓倒了", "en": "Quota exhausted — the cat has collapsed"},
+"petLove":{"zh-CN": "加额到账，团团眼冒爱心", "zh-TW": "加額到帳，團團眼冒愛心", "en": "Credit received — heart eyes"},
+"petOrbit":{"zh-CN": "额度恢复，团团绕圈庆祝", "zh-TW": "額度恢復，團團繞圈慶祝", "en": "Quota recovered — celebration orbit"},
 
   "downloadUpdate": {
     "zh-CN": "下载新版本",
@@ -172,9 +208,9 @@ const messages={
     "en": "Restore default shortcut"
   },
   "hotkeyHelp": {
-    "zh-CN": "点击输入框后按下组合键，再保存。后台运行时唤起主窗口和{pet}；彻底退出后需先打开 App。",
-    "zh-TW": "點擊輸入框後按下組合鍵，再儲存。背景執行時喚起主視窗和{pet}；完全退出後需先開啟 App。",
-    "en": "Click the field, press a shortcut, then save. Bring the main window and {pet} back from the background. After quitting, launch the app first."
+    "zh-CN": "点击输入框后按下组合键，自动保存。后台运行时唤起主窗口和{pet}；彻底退出后需先打开 App。",
+    "zh-TW": "點擊輸入框後按下組合鍵，自動儲存。背景執行時喚起主視窗和{pet}；完全退出後需先開啟 App。",
+    "en": "Click the field and press a shortcut; it saves automatically. Bring the main window and {pet} back from the background. After quitting, launch the app first."
   },
   "hotkeyConflict": {
     "zh-CN": "快捷键已被占用或不可用，请换一组；原快捷键保持不变。",

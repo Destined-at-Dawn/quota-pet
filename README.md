@@ -1,85 +1,31 @@
-<div align="center">
+# Quota Pet · Quota Pet桌面球
 
-<img src="icon.png" width="88" alt="Quota Pet cat icon">
+Windows 便携版：双击 `dist/QuotaPet/QuotaPet.exe`，无需安装 Node.js。
 
-# 团团 · Quota Pet
+圆球默认贴右边；悬浮展开。未置顶时，鼠标移出主窗口约 120ms 后收起；预览面板在鼠标离开圆球和面板后收起。点击窗口右上角置顶后保持显示，取消置顶恢复自动收起。按住圆球拖动可以改变高度并吸附左右边缘。右键圆球隐藏；托盘菜单或 Ctrl+Shift+Q 恢复。托盘菜单退出应用。
 
-一个轻巧的 Windows AI 额度桌面伴侣。
+首次使用点“登录”，由你在独立号池窗口完成管理员登录，完成后关闭该窗口。会话保存在 Electron 独立用户配置目录，应用不读取浏览器密码、不复制管理员密钥。失效后暂停自动取数，等待重新登录。
 
-[下载 Windows 版](https://download.yulitongxing.com) · [版本记录](https://github.com/Destined-at-Dawn/quota-pet/releases) · [反馈问题](https://github.com/Destined-at-Dawn/quota-pet/issues)
+## 数据
 
-![License](https://img.shields.io/badge/license-Apache--2.0-blue)
-![Platform](https://img.shields.io/badge/platform-Windows%20x64-blue)
+- 固定连接现有 `https://pool.yulitongxing.com/api/quota`，每 120 秒刷新。
+- 号池账号按 owner、provider、全部返回窗口展示：剩余比例、重置时间、附加余额。各模型共享窗口不拆分成虚构余额。
+- 成员与渠道余额直接展示 relay.users / relay.channels。现有服务未配置管理员数据接口时，显示原始配置缺失原因。当前服务最多返回前 100 个成员 / 渠道，超过时显示服务警告；此客户端不宣称已经覆盖所有成员。
+- 原始百分比在现有服务已四舍五入到 0.1%，客户端保留接口精度，不声称有更高的上游测量精度。成员 USD 数值精度同接口（4 位小数）。不把 Plus 周额度估算或剩余 token 推算当实测余额。
+- 超时保留内存中的上一份快照并标红；5 分钟未更新时显示过期提示。关闭应用不在本地持久化额度明细。
 
-</div>
+## Android / iOS 移动版
 
-![主界面预览，使用匿名测试数据](docs/preview.png)
+移动端独立工程位于 `F:\中转站\quota-pet\mobile`，与 Windows 版共用额度模型和猫咪形象。使用说明见 `F:\中转站\quota-pet\mobile\README.md`；构建和真机状态见同目录的 `release-status.json`。Android 交付 APK；iOS 需在 Mac/Xcode 上编译签名，源码工程不等于可安装 IPA。本轮实现应用内桌宠，不把跨应用悬浮或 iOS 小组件标记为已完成。
 
-## 能做什么
+## 桌面开发
 
-- 桌面圆球、悬浮额度面板和系统托盘；拖动圆球贴靠屏幕左右边缘。
-- 查看已有号池服务返回的账号额度、重置时间、成员及渠道数据；未知额度保持未知。
-- **Ctrl+Shift+X** 快速唤起，快捷键可自定义；支持窗口置顶、主题和三种界面语言。
-- 可配置自动刷新间隔，显示低额度提醒。
-- 在 App 内检查官网版本：显示当前版本、最新版本和检查结果；仅在用户点击下载时打开下载链接。
-- 通过单独安装的 CC Switch，把已有网关 API Key 配置给 Codex 或 Claude Desktop。
+`npm ci` → `npm test` → `npm start`。
 
-## 下载与运行
+`npm run smoke` 使用明确标注的测试数据启动真实 Electron 窗口、渲染并生成截图；不会连接生产接口。`npm run build` 生成便携目录。生产真实额度需本人登录验收。
 
-1. 在[下载页](https://download.yulitongxing.com)下载 Windows x64 ZIP。
-2. **完整解压**到一个固定文件夹，再运行 `QuotaPet.exe`；不需要安装 Node.js。
-3. 额度数据需要在 App 中登录现有号池服务，并拥有对应访问权限。
-4. 点击窗口关闭按钮可转入后台；彻底退出请使用系统托盘菜单。
+## 后续开发提示词
 
-此版本是便携包，没有自动安装或静默替换程序。检查更新会在启动约 8 秒后执行，并每 6 小时复查。正在运行旧版时，请先从托盘退出再打开新版。
-
-## 数据与当前功能边界
-
-当前构建连接 `pool.yulitongxing.com` 与 `console.yulitongxing.com`。它是已有服务的桌面客户端，**仓库不包含服务端、公共演示账号或内置 API Key**。
-
-登录由用户在服务页面完成。登录信息保存在独立的 Electron 用户目录中，加密备份使用 Electron `safeStorage`；额度快照和偏好保存在本机。发布源码与安装包不携带开发者会话、个人账号、真实额度记录或浏览器数据。
-
-“导入个人订阅 → 自动签发只使用本人账号的 Key”仍在开发，不属于此版本已完成的功能。CC Switch 入口是已有 Key 的配置引导；实际导入与切换需在 CC Switch 中确认。额度展示精度以服务端提供的数据为准。
-
-## 本地开发
-
-需要 Windows、Node.js 22 或更新版本及 npm。
-
-```bash
-npm ci
-npm test
-npm run audit
-npm start
+```text
+继续完善 Quota Pet。先读 README 与 model.js，使用现有登录会话和 /api/quota 契约；不要把未知额度当 0 或 100%。如需要扩展成员覆盖率，先验证服务端实际分页与权限，再单独按生产变更流程处理。保留圆球悬浮、拖动贴边、托盘隐藏恢复，并分别验证测试数据和真实账号。
 ```
-
-使用模拟数据进行 Electron 界面验证：
-
-```bash
-npm run smoke
-```
-
-构建和打包：
-
-```bash
-npm run build
-npm run package
-```
-
-构建输出为 `dist/QuotaPet/`；发布 ZIP 与校验文件位于 `artifacts/`。构建目录必须全新，打包脚本会拒绝包含登录文件、运行日志或个人缓存的目录。
-
-## 项目结构
-
-| 文件 | 作用 |
-|---|---|
-| `main.js` / `preload.js` | Electron 窗口、托盘、登录会话与 IPC |
-| `renderer.js` / `model.js` | 额度界面与数据归一化 |
-| `preferences.cjs` / `hotkey.cjs` | 偏好与全局快捷键 |
-| `update-check.cjs` | 官网发布清单与版本比较 |
-| `client-setup.cjs` | CC Switch 协议集成 |
-| `privacy-audit.cjs` | 源码及便携包发布检查 |
-
-## 开源与致谢
-
-采用 **Apache-2.0** 许可证。项目参考了 [PoggetCore](https://github.com/EnderMo/PoggetCore) / [VinaUI](https://github.com/EnderMo/VinaUI) 的桌面交互思路；Quota Pet 是独立编写的 Electron 应用，不是 Pogget 的改名版本。
-
-完整第三方说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。提交问题时请先遮盖邮箱、Key 和额度截图中的个人信息。

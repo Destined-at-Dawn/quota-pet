@@ -6,7 +6,7 @@ function trayTemplate(lang,actions){
 function sizeTemplate(lang,actions,size){
  return [
   ...[['openPet','open'],['console','console'],['add','add'],['manageHint','manage']].map(([key,action])=>({label:t(key,{},lang),click:actions[action]})),
-  {label:t('petSize',{},lang),submenu:[48,60,72,96,120].map(value=>({label:String(value)+' px',type:'radio',checked:size===value,click:()=>actions.resize(value)}))},
+  {label:t('petSize',{},lang),submenu:[96,120,180,240,320].map(value=>({label:String(value)+' px',type:'radio',checked:size===value,click:()=>actions.resize(value)}))},
   {label:t('hidePet',{},lang),click:actions.hide}
  ];
 }

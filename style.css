@@ -35,3 +35,44 @@ header.titlebar button{flex-shrink:0}
 .pin-icon{mask-image:url('window-pin.svg')}.minimize-icon{mask-image:url('window-minimize.svg')}
 #window-pin[aria-pressed=true]{color:#5d72ff;background:#eef0ff}
 #window-pin:disabled{opacity:.6;cursor:wait}
+
+/* In-flow popup stays within the scrollable floating window, including narrow previews. */
+.model-picker{position:relative;min-width:0}
+#cc-model-popup{margin:6px 0 10px;border:1px solid var(--line);border-radius:12px;background:var(--canvas);padding:8px;box-shadow:0 4px 12px #4b3d2d12}
+#cc-model-popup[hidden]{display:none}
+#cc-model-state{margin:4px 6px 8px;font-size:12px;line-height:1.6;color:var(--muted)}
+#cc-model-list{max-height:240px;overflow:auto;overscroll-behavior:contain}
+.model-option{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:7px;font-size:13px;min-height:36px;text-align:left}
+.model-option>span{overflow-wrap:anywhere;min-width:0}
+.model-option[aria-disabled=false]{cursor:pointer}.model-option[aria-disabled=false]:hover,.model-option.active{background:var(--tint)}
+.model-option[aria-disabled=true]{color:#8b8178}
+#cc-model-popup .model-lock{position:static;flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;padding:5px;border:0;background:transparent;color:#8d755a;cursor:help;border-radius:5px}
+#cc-model-popup .model-lock:hover{transform:none;background:var(--tint)}
+.model-lock svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6}
+.model-lock-tip{display:none;position:absolute;z-index:4;right:3px;bottom:36px;width:min(280px,calc(100% - 6px));padding:9px 12px;border-radius:8px;background:#403930;color:#fff;text-align:left;font-size:12px;font-weight:400;line-height:1.6;box-sizing:border-box;pointer-events:none}
+.model-lock:hover .model-lock-tip,.model-lock:focus .model-lock-tip{display:block}
+.model-option:first-child .model-lock-tip{top:36px;bottom:auto}
+#cc-model-retry{margin:7px 0 0;font-size:12px;padding:5px 10px}
+
+/* Settings are an independent, recoverable window, never a dashboard navigation. */
+body:not(.settings-view) .preferences{display:none}
+.settings-view main>:not(.preferences){display:none!important}
+.settings-view .titlebar .brand small,.settings-view .titlebar>[data-action=hide],.settings-view #window-pin{display:none}
+.settings-view .titlebar{-webkit-app-region:drag}
+.settings-view .preferences{margin:0}
+.settings-view .preferences>summary{pointer-events:none;list-style:none;margin-bottom:12px;font-weight:600}
+.settings-view #preferences-form{margin:0}
+.appearance-controls{display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:12px}
+.appearance-controls label{display:flex;justify-content:space-between;align-items:center}
+.appearance-controls input[type=range]{padding:0;margin:3px 0 12px;accent-color:var(--accent);cursor:pointer}
+.appearance-controls output{font-variant-numeric:tabular-nums}
+.settings-footer{display:flex;align-items:center;gap:12px;position:sticky;bottom:-22px;background:var(--canvas);padding:12px 0;border-top:1px solid var(--line);z-index:5}
+.settings-footer button:disabled{opacity:.45;cursor:default}
+.autosave-note{display:block;line-height:1.6;margin-bottom:14px}
+.settings-button[aria-expanded=true]{background:var(--tint);border-color:var(--accent)}
+.settings-view .window-controls .dashboard-only{display:none}
+.appearance-controls label.reminder-option{justify-content:flex-start;gap:8px}
+
+.pet-choice{display:flex;align-items:center;gap:14px;margin-bottom:24px}.pet-choice>div{flex:1;min-width:0}.pet-choice img{flex:none;object-fit:contain}.pet-choice label{margin-top:0}
+
+.pet-choice select{display:block;width:100%;margin:8px 0}.pet-choice small{display:block;line-height:1.65}

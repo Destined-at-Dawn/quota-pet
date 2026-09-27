@@ -1,11 +1,18 @@
-# Third-party notices
+# 本地参考与复用来源
 
-Quota Pet is an independent Electron application, not a renamed Pogget build.
+2026-09-24 下载官方 GitHub main 分支源码归档，完整许可证保留在源码目录。
 
-- Interaction reference: [PoggetCore](https://github.com/EnderMo/PoggetCore) (Apache-2.0).
-- Window-control reference: [VinaUI](https://github.com/EnderMo/VinaUI) (MIT); icon licensing below.
-- [CC Switch](https://github.com/farion1231/cc-switch) is invoked through its public URI protocol, not bundled.
-- Electron and Chromium license files ship in the portable package.
+- CPA-Manager-Plus（MIT，Seakee）：https://github.com/seakee/CPA-Manager-Plus
+  本地 `F:/中转站/references/CPA-Manager-Plus-main`。
+  已阅读 `apps/web/src/types/quota.ts`、`apps/web/src/utils/quota/validators.ts`、`apps/web/src/utils/quota/xaiPresentation.ts`，参考 provider / window / balance 分离、不同提供商字段与故障分类。
+- CodexBar（MIT，Peter Steinberger）：https://github.com/steipete/CodexBar
+  本地 `F:/中转站/references/CodexBar-main`。
+  已阅读 `Sources/CodexBar/MenuBarMetricWindowResolver.swift`，参考主/周/附加窗口区分，以及未提供窗口不显示虚构 0% 占位的处理。
+- 直接复用数据契约：本工作区 `pool-web/quota_hub.py` 的 `build_quota`。桌面端不包含生产密钥，也不重新实现供应商 OAuth。
+
+本 App 的 Electron 外壳及 JS 渲染独立编写，不是把上述 macOS 或 Web 项目直接改名发布。X 推荐链接来自用户附件，本轮搜索工具报错，未对帖子正文作独立验证： https://x.com/geekbb/status/2072491696726642872
+
+Electron 的许可证与 Chromium 第三方声明随便携运行时保留。
 
 ## active-win / get-windows (Windows foreground detection)
 Source: https://github.com/sindresorhus/active-win/blob/8fbea97ecd6edc42295696c87081bd29432ab461/Sources/windows/main.cc
@@ -22,7 +29,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Pogget/VinaUI window controls
-Reference: VinaUI commit 9ae0ecc3fa7bcd6fee4cb4934e7c46cd71d79989, VinaApp.cpp line 393 (SC_MINIMIZE) and VinaCommonCtls.hpp line 1310 (win-min = U+F068). window-pin.svg and window-minimize.svg are outline conversions of Font Awesome Free 6 Solid thumbtack U+F08D and minus U+F068 from the same FA6_SOLID.ttf resource. SVG conversion/size normalization performed for Electron; copyright Fonticons, Inc. / Font Awesome. Icons CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ ; source font SIL OFL 1.1. Full upstream license follows. The Electron window controls are independently implemented.
+Read VinaUI commit 9ae0ecc3fa7bcd6fee4cb4934e7c46cd71d79989, VinaApp.cpp line 393 (SC_MINIMIZE) and VinaCommonCtls.hpp line 1310 (win-min = U+F068). window-pin.svg and window-minimize.svg are outline conversions of Font Awesome Free 6 Solid thumbtack U+F08D and minus U+F068 from the same FA6_SOLID.ttf resource. SVG conversion/size normalization performed for Electron; copyright Fonticons, Inc. / Font Awesome. Icons CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ ; source font SIL OFL 1.1. Full upstream license follows. Screenshot Pogget pin toggle implementation was not present in local PoggetCore, so the app implements its own immediate Electron pin toggle; no claim to copy unseen Pogget feature code.
 Fonticons, Inc. (https://fontawesome.com)
 
 --------------------------------------------------------------------------------
@@ -188,3 +195,7 @@ All brand icons are trademarks of their respective owners. The use of these
 trademarks does not indicate endorsement of the trademark holder by Font
 Awesome, nor vice versa. **Please do not use brand logos for any purpose except
 to represent the company, product, or service to which they refer.**
+
+## Three.js 0.186.1
+
+Real-time 3D rendering uses Three.js (MIT), https://github.com/mrdoob/three.js . The complete license ships in vendor/three/LICENSE. Cat geometry and motion code were created for this app.

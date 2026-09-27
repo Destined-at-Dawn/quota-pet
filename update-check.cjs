@@ -27,7 +27,7 @@ function evaluate(current,manifest,platform=process.platform,arch=process.arch){
  const item=manifest.latest;if(!item||typeof item!=='object'||version(item.version).pre.length||!allowedDownload(item.url)||typeof item.notes!=='string'||item.notes.length>4000)throw Error('INVALID_MANIFEST');
  if(item.platform!==platform||item.arch!==arch)return {status:'unsupported',current,latest:item.version};
  const cmp=compareVersions(item.version,current);
- return {status:cmp>0?'available':cmp===0?'current':'ahead',current,latest:item.version,notes:item.notes,downloadUrl:cmp>0?item.url:null};
+ return {status:cmp>0?'available':cmp===0?'current':'ahead',current,latest:item.version,notes:item.notes,downloadUrl:cmp>0?item.url:null,release:cmp>0?item:null};
 }
 async function readManifest(fetchImpl){
  const r=await fetchImpl(MANIFEST_URL,{credentials:'omit',redirect:'error',cache:'no-store',signal:AbortSignal.timeout(12000),headers:{Accept:'application/json'}});

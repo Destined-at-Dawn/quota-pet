@@ -1,0 +1,34 @@
+{
+  "version": "2026-09-27",
+  "plans": {
+    "trial": {
+      "label": "体验档",
+      "loginRequired": false,
+      "deniedFamilies": [
+        "fable-5.1",
+        "opus-5.5",
+        "gpt-6"
+      ]
+    },
+    "std": {
+      "label": "常用档",
+      "loginRequired": true,
+      "deniedFamilies": [
+        "fable-5.1"
+      ]
+    },
+    "pro": {
+      "label": "专业档",
+      "loginRequired": true,
+      "deniedFamilies": []
+    },
+    "team": {
+      "label": "团队版",
+      "loginRequired": true,
+      "deniedFamilies": [],
+      "status": "confirmed"
+    }
+  },
+  "productionEnforcement": "pending-server-integration",
+  "anonymousInference": "pending-server-integration"
+}
